@@ -20,7 +20,7 @@ export const parseExcelFile = (file: File): Promise<Pedido[]> => {
 
         for (let i = 1; i < jsonData.length; i++) {
           const row = jsonData[i];
-          if (row && row.length >= 6) {
+          if (row && row.length >= 5) {
             pedidos.push({
               customer_name: String(row[0] || ""),
               phone_number: formatPhone(String(row[1] || "")),

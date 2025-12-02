@@ -81,7 +81,7 @@ const MainScreen = () => {
           return null;
         };
 
-        const pedidoDate = parseDate(pedido.data);
+        const pedidoDate = parseDate(pedido.date);
 
         if (pedidoDate) {
           if (filtros.dataInicio) {
@@ -208,8 +208,8 @@ const MainScreen = () => {
               </div>
             ) : viewMode === "lista" ? (
               <div className="space-y-4">
-                {filteredPedidos.map((pedido) => (
-                  <PedidoCard key={pedido.id} pedido={pedido} />
+                {filteredPedidos.map((pedido, key) => (
+                  <PedidoCard key={key} pedido={pedido} />
                 ))}
               </div>
             ) : (

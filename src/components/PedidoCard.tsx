@@ -86,12 +86,6 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
             size={22}
             className="text-muted-foreground mt-1 flex-shrink-0"
           />
-          <div>
-            <p className="text-elderly-sm text-muted-foreground">ID / Linha</p>
-            <p className="text-elderly-base font-medium text-foreground">
-              {pedido.id}
-            </p>
-          </div>
         </div>
       </div>
 
