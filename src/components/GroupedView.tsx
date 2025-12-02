@@ -102,8 +102,8 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
             {/* Expanded Pedidos */}
             {isExpanded && (
               <div className="mt-3 ml-4 pl-4 border-l-4 border-primary/20 space-y-4">
-                {grupo.pedidos.map((pedido) => (
-                  <PedidoCard key={pedido.id} pedido={pedido} />
+                {grupo.pedidos.map((pedido, key) => (
+                  <PedidoCard key={key} pedido={pedido} />
                 ))}
               </div>
             )}
