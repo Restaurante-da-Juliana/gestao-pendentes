@@ -1,14 +1,13 @@
 export interface Pedido {
-  id: string | number;
-  nome_cliente: string;
-  valor_devido: number;
-  descricao: string;
-  data: string;
-  telefone: string;
+  customer_name: string;
+  amount_due: number;
+  description: string;
+  date: string;
+  phone_number: string;
 }
 
 export interface PedidoAgrupado {
-  nome_cliente: string;
+  customer_name: string;
   total_devido: number;
   pedidos: Pedido[];
 }

@@ -1,7 +1,15 @@
-import { MessageCircle, Trash2, User, Calendar, FileText, Phone, Hash } from 'lucide-react';
-import { Pedido } from '@/types/pedido';
-import { formatCurrency, formatPhoneDisplay } from '@/lib/excel';
-import { openClientWhatsApp, openRemovalWhatsApp } from '@/lib/whatsapp';
+import {
+  MessageCircle,
+  Trash2,
+  User,
+  Calendar,
+  FileText,
+  Phone,
+  Hash,
+} from "lucide-react";
+import { Pedido } from "@/types/pedido";
+import { formatCurrency, formatPhoneDisplay } from "@/lib/excel";
+import { openClientWhatsApp, openRemovalWhatsApp } from "@/lib/whatsapp";
 
 interface PedidoCardProps {
   pedido: Pedido;
@@ -16,49 +24,73 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
           <User size={24} className="text-primary" />
         </div>
         <h3 className="text-elderly-xl font-bold text-foreground flex-1">
-          {pedido.nome_cliente}
+          {pedido.customer_name}
         </h3>
       </div>
 
       {/* Valor Devido - Maior destaque */}
       <div className="bg-primary/5 rounded-xl p-4 mb-5">
-        <p className="text-elderly-base text-muted-foreground mb-1">Valor Devido</p>
+        <p className="text-elderly-base text-muted-foreground mb-1">
+          Valor Devido
+        </p>
         <p className="text-elderly-2xl font-bold text-primary">
-          {formatCurrency(pedido.valor_devido)}
+          {formatCurrency(pedido.amount_due)}
         </p>
       </div>
 
       {/* Informações do Pedido */}
       <div className="space-y-4 mb-6">
         <div className="flex items-start gap-3">
-          <FileText size={22} className="text-muted-foreground mt-1 flex-shrink-0" />
+          <FileText
+            size={22}
+            className="text-muted-foreground mt-1 flex-shrink-0"
+          />
           <div>
             <p className="text-elderly-sm text-muted-foreground">Descrição</p>
-            <p className="text-elderly-base font-medium text-foreground">{pedido.descricao || 'Sem descrição'}</p>
+            <p className="text-elderly-base font-medium text-foreground">
+              {pedido.description || "Sem descrição"}
+            </p>
           </div>
         </div>
 
         <div className="flex items-start gap-3">
-          <Calendar size={22} className="text-muted-foreground mt-1 flex-shrink-0" />
+          <Calendar
+            size={22}
+            className="text-muted-foreground mt-1 flex-shrink-0"
+          />
           <div>
             <p className="text-elderly-sm text-muted-foreground">Data</p>
-            <p className="text-elderly-base font-medium text-foreground">{pedido.data}</p>
+            <p className="text-elderly-base font-medium text-foreground">
+              {pedido.date}
+            </p>
           </div>
         </div>
 
         <div className="flex items-start gap-3">
-          <Phone size={22} className="text-muted-foreground mt-1 flex-shrink-0" />
+          <Phone
+            size={22}
+            className="text-muted-foreground mt-1 flex-shrink-0"
+          />
           <div>
-            <p className="text-elderly-sm text-muted-foreground">Telefone</p>
-            <p className="text-elderly-base font-medium text-foreground">{formatPhoneDisplay(pedido.telefone)}</p>
+            <p className="text-elderly-sm text-muted-foreground">
+              Phone_number
+            </p>
+            <p className="text-elderly-base font-medium text-foreground">
+              {formatPhoneDisplay(pedido.phone_number)}
+            </p>
           </div>
         </div>
 
         <div className="flex items-start gap-3">
-          <Hash size={22} className="text-muted-foreground mt-1 flex-shrink-0" />
+          <Hash
+            size={22}
+            className="text-muted-foreground mt-1 flex-shrink-0"
+          />
           <div>
             <p className="text-elderly-sm text-muted-foreground">ID / Linha</p>
-            <p className="text-elderly-base font-medium text-foreground">{pedido.id}</p>
+            <p className="text-elderly-base font-medium text-foreground">
+              {pedido.id}
+            </p>
           </div>
         </div>
       </div>
@@ -66,7 +98,7 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
       {/* Action Buttons */}
       <div className="space-y-3">
         <button
-          onClick={() => openClientWhatsApp(pedido.telefone)}
+          onClick={() => openClientWhatsApp(pedido.phone_number)}
           className="btn-elderly-xl w-full bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 focus:ring-whatsapp/30 flex items-center justify-center gap-3"
         >
           <MessageCircle size={28} />

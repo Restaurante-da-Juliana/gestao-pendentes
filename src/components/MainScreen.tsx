@@ -1,27 +1,27 @@
-import { useState, useMemo } from 'react';
-import { List, Users, FileSpreadsheet, AlertCircle } from 'lucide-react';
-import { Pedido, Filtros } from '@/types/pedido';
-import { parseExcelFile } from '@/lib/excel';
-import FileUpload from './FileUpload';
-import FilterSection from './FilterSection';
-import PedidoCard from './PedidoCard';
-import GroupedView from './GroupedView';
-import { toast } from '@/hooks/use-toast';
+import { useState, useMemo } from "react";
+import { List, Users, FileSpreadsheet, AlertCircle } from "lucide-react";
+import { Pedido, Filtros } from "@/types/pedido";
+import { parseExcelFile } from "@/lib/excel";
+import FileUpload from "./FileUpload";
+import FilterSection from "./FilterSection";
+import PedidoCard from "./PedidoCard";
+import GroupedView from "./GroupedView";
+import { toast } from "@/hooks/use-toast";
 
 const initialFiltros: Filtros = {
-  busca: '',
-  dataInicio: '',
-  dataFim: '',
-  valorMin: '',
-  valorMax: '',
+  busca: "",
+  dataInicio: "",
+  dataFim: "",
+  valorMin: "",
+  valorMax: "",
 };
 
 const MainScreen = () => {
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [filtros, setFiltros] = useState<Filtros>(initialFiltros);
-  const [viewMode, setViewMode] = useState<'lista' | 'agrupado'>('lista');
+  const [viewMode, setViewMode] = useState<"lista" | "agrupado">("lista");
   const [isLoading, setIsLoading] = useState(false);
-  const [fileName, setFileName] = useState<string>('');
+  const [fileName, setFileName] = useState<string>("");
 
   const handleFileSelect = async (file: File) => {
     setIsLoading(true);
@@ -30,14 +30,15 @@ const MainScreen = () => {
       setPedidos(data);
       setFileName(file.name);
       toast({
-        title: 'Arquivo carregado!',
+        title: "Arquivo carregado!",
         description: `${data.length} pedidos encontrados.`,
       });
     } catch (error) {
       toast({
-        title: 'Erro ao carregar',
-        description: error instanceof Error ? error.message : 'Erro desconhecido',
-        variant: 'destructive',
+        title: "Erro ao carregar",
+        description:
+          error instanceof Error ? error.message : "Erro desconhecido",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -49,19 +50,19 @@ const MainScreen = () => {
       // Busca por nome
       if (filtros.busca) {
         const searchTerm = filtros.busca.toLowerCase();
-        if (!pedido.nome_cliente.toLowerCase().includes(searchTerm)) {
+        if (!pedido.customer_name.toLowerCase().includes(searchTerm)) {
           return false;
         }
       }
 
       // Filtro por valor
       if (filtros.valorMin) {
-        if (pedido.valor_devido < parseFloat(filtros.valorMin)) {
+        if (pedido.amount_due < parseFloat(filtros.valorMin)) {
           return false;
         }
       }
       if (filtros.valorMax) {
-        if (pedido.valor_devido > parseFloat(filtros.valorMax)) {
+        if (pedido.amount_due > parseFloat(filtros.valorMax)) {
           return false;
         }
       }
@@ -70,7 +71,7 @@ const MainScreen = () => {
       if (filtros.dataInicio || filtros.dataFim) {
         const parseDate = (dateStr: string): Date | null => {
           // Try DD/MM/YYYY format
-          const parts = dateStr.split('/');
+          const parts = dateStr.split("/");
           if (parts.length === 3) {
             const day = parseInt(parts[0]);
             const month = parseInt(parts[1]) - 1;
@@ -81,7 +82,7 @@ const MainScreen = () => {
         };
 
         const pedidoDate = parseDate(pedido.data);
-        
+
         if (pedidoDate) {
           if (filtros.dataInicio) {
             const startDate = new Date(filtros.dataInicio);
@@ -104,7 +105,7 @@ const MainScreen = () => {
   }, [pedidos, filtros]);
 
   const totalDevido = useMemo(() => {
-    return filteredPedidos.reduce((sum, p) => sum + p.valor_devido, 0);
+    return filteredPedidos.reduce((sum, p) => sum + p.amount_due, 0);
   }, [filteredPedidos]);
 
   const handleLimparFiltros = () => {
@@ -113,7 +114,7 @@ const MainScreen = () => {
 
   const handleNewFile = () => {
     setPedidos([]);
-    setFileName('');
+    setFileName("");
     setFiltros(initialFiltros);
   };
 
@@ -121,9 +122,7 @@ const MainScreen = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-primary text-primary-foreground p-5 shadow-lg">
-        <h1 className="text-elderly-2xl font-bold text-center">
-          Pendências
-        </h1>
+        <h1 className="text-elderly-2xl font-bold text-center">Pendências</h1>
         {fileName && (
           <p className="text-elderly-base text-center mt-1 opacity-90">
             {fileName}
@@ -146,7 +145,10 @@ const MainScreen = () => {
                     Total de Pendências
                   </p>
                   <p className="text-elderly-2xl font-bold text-primary">
-                    R$ {totalDevido.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    R${" "}
+                    {totalDevido.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                    })}
                   </p>
                 </div>
                 <div className="text-right">
@@ -170,22 +172,22 @@ const MainScreen = () => {
             {/* View Toggle */}
             <div className="flex gap-3 mb-6">
               <button
-                onClick={() => setViewMode('lista')}
+                onClick={() => setViewMode("lista")}
                 className={`btn-elderly flex-1 flex items-center justify-center gap-2 ${
-                  viewMode === 'lista'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-secondary text-secondary-foreground'
+                  viewMode === "lista"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground"
                 }`}
               >
                 <List size={22} />
                 <span>Lista</span>
               </button>
               <button
-                onClick={() => setViewMode('agrupado')}
+                onClick={() => setViewMode("agrupado")}
                 className={`btn-elderly flex-1 flex items-center justify-center gap-2 ${
-                  viewMode === 'agrupado'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-secondary text-secondary-foreground'
+                  viewMode === "agrupado"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground"
                 }`}
               >
                 <Users size={22} />
@@ -196,12 +198,15 @@ const MainScreen = () => {
             {/* Data Display */}
             {filteredPedidos.length === 0 ? (
               <div className="card-elderly text-center animate-fade-in">
-                <AlertCircle size={48} className="mx-auto text-muted-foreground mb-4" />
+                <AlertCircle
+                  size={48}
+                  className="mx-auto text-muted-foreground mb-4"
+                />
                 <p className="text-elderly-lg text-muted-foreground">
                   Nenhum pedido encontrado com os filtros atuais.
                 </p>
               </div>
-            ) : viewMode === 'lista' ? (
+            ) : viewMode === "lista" ? (
               <div className="space-y-4">
                 {filteredPedidos.map((pedido) => (
                   <PedidoCard key={pedido.id} pedido={pedido} />
