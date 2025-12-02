@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design System for Elderly-Friendly App - High Contrast, Large UI */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* High contrast color palette for accessibility */
+    --background: 210 20% 98%;
+    --foreground: 220 30% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 10%;
+
+    /* Primary - Deep blue for trust and clarity */
+    --primary: 220 80% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Light blue for subtle actions */
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 220 30% 15%;
+
+    /* Muted for disabled/placeholder states */
+    --muted: 210 20% 90%;
+    --muted-foreground: 220 15% 45%;
+
+    /* Accent - Warm orange for important highlights */
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    /* WhatsApp green for contact actions */
+    --whatsapp: 142 70% 40%;
+    --whatsapp-foreground: 0 0% 100%;
+
+    /* Remove/alert - Clear red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success state */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    /* Borders and inputs - clear definition */
+    --border: 220 20% 82%;
+    --input: 220 20% 82%;
+    --ring: 220 80% 35%;
+
+    --radius: 1rem;
+
+    /* Sidebar variables */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 25% 8%;
+    --foreground: 210 20% 98%;
+
+    --card: 220 25% 12%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 100% 60%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 220 20% 20%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 20% 18%;
+    --muted-foreground: 210 15% 60%;
+
+    --accent: 25 95% 60%;
+    --accent-foreground: 220 25% 8%;
+
+    --whatsapp: 142 70% 45%;
+    --whatsapp-foreground: 220 25% 8%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 42%;
+    --success-foreground: 220 25% 8%;
+
+    --border: 220 20% 25%;
+    --input: 220 20% 25%;
+    --ring: 210 100% 60%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 18px; /* Base font size larger for elderly */
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Ensure minimum touch targets */
+  button, a, input, select, textarea {
+    min-height: 48px;
+  }
+}
+
+@layer utilities {
+  /* Large touch-friendly button base */
+  .btn-elderly {
+    @apply min-h-[60px] px-6 py-4 text-lg font-semibold rounded-xl;
+    @apply transition-all duration-200 ease-out;
+    @apply active:scale-[0.98] focus:outline-none focus:ring-4;
+  }
+
+  /* Extra large for main actions */
+  .btn-elderly-xl {
+    @apply min-h-[70px] px-8 py-5 text-xl font-bold rounded-2xl;
+    @apply transition-all duration-200 ease-out;
+    @apply active:scale-[0.98] focus:outline-none focus:ring-4;
+  }
+
+  /* Card styles for data display */
+  .card-elderly {
+    @apply bg-card rounded-2xl p-5 shadow-lg border-2 border-border;
+  }
+
+  /* Input styles - large and clear */
+  .input-elderly {
+    @apply min-h-[56px] px-4 py-3 text-lg rounded-xl border-2 border-input;
+    @apply bg-background text-foreground placeholder:text-muted-foreground;
+    @apply focus:border-primary focus:ring-4 focus:ring-primary/20 focus:outline-none;
+  }
+
+  /* Label styles */
+  .label-elderly {
+    @apply text-base font-semibold text-foreground mb-2 block;
+  }
+
+  /* Value display - prominent */
+  .value-display {
+    @apply text-2xl font-bold text-primary;
+  }
+
+  /* Section headers */
+  .section-header {
+    @apply text-2xl font-bold text-foreground mb-4;
+  }
+}

@@ -1,0 +1,60 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Diretórios do Vite
+dist/
+dist-ssr/
+*.local
+
+# Diretórios de dependências
+node_modules/
+
+# Vite cache
+.vite/
+vite.config.ts.timestamp-*
+vite.config.js.timestamp-*
+
+# Tailwind
+.tailwindcache/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Diretórios de build temporários
+*.temp
+*.tmp
+
+# Sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Cache do TypeScript
+*.tsbuildinfo
+
+# Lint cache
+.eslintcache
+.stylelintcache
+
+# Coverage
+coverage/
+*.lcov
+
+# Optional: caso você use storybook
+storybook-static/
