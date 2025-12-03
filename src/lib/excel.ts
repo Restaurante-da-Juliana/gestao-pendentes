@@ -15,7 +15,6 @@ export const parseExcelFile = (file: File): Promise<Pedido[]> => {
           header: 1,
         }) as unknown[][];
 
-        // Skip header row, map data to Pedido interface
         const pedidos: Pedido[] = [];
 
         for (let i = 1; i < jsonData.length; i++) {
@@ -52,12 +51,10 @@ export const parseExcelFile = (file: File): Promise<Pedido[]> => {
 const formatExcelDate = (value: unknown): string => {
   if (!value) return "";
 
-  // If it's already a string date
   if (typeof value === "string") {
     return value;
   }
 
-  // Excel serial date number
   if (typeof value === "number") {
     const date = XLSX.SSF.parse_date_code(value);
     if (date) {
@@ -72,15 +69,12 @@ const formatExcelDate = (value: unknown): string => {
 };
 
 const formatPhone = (phone: string): string => {
-  // Remove all non-numeric characters
   const numbers = phone.replace(/\D/g, "");
 
-  // If already has country code, return as is
   if (numbers.startsWith("55") && numbers.length >= 12) {
     return numbers;
   }
 
-  // Add country code if needed
   if (numbers.length === 11 || numbers.length === 10) {
     return `55${numbers}`;
   }
@@ -99,7 +93,6 @@ export const formatPhoneDisplay = (phone: string): string => {
   const numbers = phone.replace(/\D/g, "");
 
   if (numbers.length === 13) {
-    // 55 + DDD + 9 digits
     return `(${numbers.slice(2, 4)}) ${numbers.slice(4, 5)} ${numbers.slice(
       5,
       9
@@ -107,7 +100,6 @@ export const formatPhoneDisplay = (phone: string): string => {
   }
 
   if (numbers.length === 12) {
-    // 55 + DDD + 8 digits
     return `(${numbers.slice(2, 4)}) ${numbers.slice(4, 8)}-${numbers.slice(
       8
     )}`;

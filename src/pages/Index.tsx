@@ -7,11 +7,9 @@ const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check if user is already authenticated
     setIsLoggedIn(isAuthenticated());
   }, []);
 
-  // Loading state
   if (isLoggedIn === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">

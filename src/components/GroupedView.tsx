@@ -13,7 +13,6 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
     new Set()
   );
 
-  // Group pedidos by client name
   const grupos: PedidoAgrupado[] = pedidos.reduce((acc, pedido) => {
     const existingGroup = acc.find(
       (g) => g.customer_name === pedido.customer_name
@@ -33,7 +32,6 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
     return acc;
   }, [] as PedidoAgrupado[]);
 
-  // Sort by total value (highest first)
   grupos.sort((a, b) => b.total_devido - a.total_devido);
 
   const toggleExpand = (clientName: string) => {
