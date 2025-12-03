@@ -1,8 +1,7 @@
 import { Pedido } from "@/types/pedido";
 import { formatCurrency } from "./excel";
 
-// Número para enviar solicitações de remoção (configurável)
-const ADMIN_PHONE = "5544988602881"; // Substituir pelo número real via env se disponível
+const ADMIN_PHONE = "5544988602881";
 
 export const openClientWhatsApp = (phone_number: string): void => {
   const phone = phone_number.replace(/\D/g, "");

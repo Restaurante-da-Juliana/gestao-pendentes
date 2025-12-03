@@ -12,16 +12,10 @@ const FilterSection = ({ filtros, onFiltrosChange, onLimpar }: FilterSectionProp
 
   return (
     <div className="card-elderly mb-6 animate-fade-in">
-      <h2 className="text-elderly-xl font-bold text-foreground mb-5 flex items-center gap-2">
-        <Search size={24} />
-        Filtros
-      </h2>
 
       <div className="space-y-5">
-        {/* Busca por nome */}
         <div>
           <label htmlFor="busca" className="label-elderly flex items-center gap-2">
-            <Search size={18} />
             Nome do Cliente
           </label>
           <input
@@ -32,72 +26,6 @@ const FilterSection = ({ filtros, onFiltrosChange, onLimpar }: FilterSectionProp
             className="input-elderly w-full"
             placeholder="Digite o nome..."
           />
-        </div>
-
-        {/* Filtro por data */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="dataInicio" className="label-elderly flex items-center gap-2">
-              <Calendar size={18} />
-              Data Início
-            </label>
-            <input
-              id="dataInicio"
-              type="date"
-              value={filtros.dataInicio}
-              onChange={(e) => onFiltrosChange({ ...filtros, dataInicio: e.target.value })}
-              className="input-elderly w-full"
-            />
-          </div>
-          <div>
-            <label htmlFor="dataFim" className="label-elderly flex items-center gap-2">
-              <Calendar size={18} />
-              Data Fim
-            </label>
-            <input
-              id="dataFim"
-              type="date"
-              value={filtros.dataFim}
-              onChange={(e) => onFiltrosChange({ ...filtros, dataFim: e.target.value })}
-              className="input-elderly w-full"
-            />
-          </div>
-        </div>
-
-        {/* Filtro por valor */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="valorMin" className="label-elderly flex items-center gap-2">
-              <DollarSign size={18} />
-              Valor Mínimo
-            </label>
-            <input
-              id="valorMin"
-              type="number"
-              min="0"
-              step="0.01"
-              value={filtros.valorMin}
-              onChange={(e) => onFiltrosChange({ ...filtros, valorMin: e.target.value })}
-              className="input-elderly w-full"
-              placeholder="R$ 0,00"
-            />
-          </div>
-          <div>
-            <label htmlFor="valorMax" className="label-elderly flex items-center gap-2">
-              <DollarSign size={18} />
-              Valor Máximo
-            </label>
-            <input
-              id="valorMax"
-              type="number"
-              min="0"
-              step="0.01"
-              value={filtros.valorMax}
-              onChange={(e) => onFiltrosChange({ ...filtros, valorMax: e.target.value })}
-              className="input-elderly w-full"
-              placeholder="R$ 9999,99"
-            />
-          </div>
         </div>
 
         {/* Botão Limpar */}
