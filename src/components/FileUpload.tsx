@@ -2,6 +2,30 @@ import { useEffect, useRef, useState } from "react";
 import { Upload, FileSpreadsheet } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
+const FileUploadSkeleton = () => {
+  return (
+    <div className="card-elderly animate-fade-in p-6 w-full">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="w-16 h-16 bg-muted rounded-full animate-pulse" />
+
+          <div className="flex-1 min-w-0 space-y-2">
+            <div className="w-48 h-6 bg-muted rounded animate-pulse" />
+            <div className="w-32 h-4 bg-muted rounded animate-pulse" />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-end gap-2">
+          <div className="w-20 h-4 bg-muted rounded animate-pulse" />
+          <div className="w-32 h-6 bg-muted rounded animate-pulse" />
+        </div>
+      </div>
+
+      <div className="mt-6 w-full h-14 bg-muted rounded-xl animate-pulse" />
+    </div>
+  );
+};
+
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
   isLoading: boolean;
@@ -12,11 +36,13 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [hasLoadedUrl, setHasLoadedUrl] = useState(false);
+  const [isFetchingUrl, setIsFetchingUrl] = useState(false);
 
   useEffect(() => {
     const loadFileFromUrl = async () => {
       if (!fileUrl) return;
       if (hasLoadedUrl) return;
+      setIsFetchingUrl(true);
 
       try {
         const response = await fetch(fileUrl);
@@ -45,6 +71,7 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
         setHasLoadedUrl(true);
       }
     };
+    setIsFetchingUrl(false);
 
     loadFileFromUrl();
   }, [fileUrl, hasLoadedUrl, onFileSelect]);
@@ -59,6 +86,10 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
   const handleClick = () => {
     inputRef.current?.click();
   };
+
+  if (isFetchingUrl) {
+    return <FileUploadSkeleton />;
+  }
 
   return (
     <div className="card-elderly animate-fade-in">
