@@ -73,19 +73,12 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
           />
           <div>
             <p className="text-elderly-sm text-muted-foreground">
-              Phone_number
+              Número de Telefone
             </p>
             <p className="text-elderly-base font-medium text-foreground">
               {formatPhoneDisplay(pedido.phone_number)}
             </p>
           </div>
-        </div>
-
-        <div className="flex items-start gap-3">
-          <Hash
-            size={22}
-            className="text-muted-foreground mt-1 flex-shrink-0"
-          />
         </div>
       </div>
 
