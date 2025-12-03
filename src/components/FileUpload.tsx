@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Upload, FileSpreadsheet } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -10,12 +11,25 @@ interface FileUploadProps {
 const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const loadedOnce = useRef(false);
+
   useEffect(() => {
     const loadFileFromUrl = async () => {
       if (!fileUrl) return;
+      if (loadedOnce.current) return;
 
       try {
         const response = await fetch(fileUrl);
+        if (!response.ok) {
+          toast({
+            title: "Erro ao carregar",
+            description: "Link de planilha inválido, verifique.",
+            variant: "destructive",
+          });
+          loadedOnce.current = true;
+          return;
+        }
+
         const blob = await response.blob();
 
         const file = new File([blob], "customers.xlsx", {
@@ -23,7 +37,6 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
             blob.type ||
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
-
         onFileSelect(file);
       } catch (err) {
         console.error("Erro ao carregar arquivo da URL:", err);

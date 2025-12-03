@@ -72,7 +72,7 @@ const MainScreen = () => {
             <FileUpload
               onFileSelect={handleFileSelect}
               isLoading={isLoading}
-              fileUrl="https://docs.google.com/spreadsheets/d/1VCv4zF1QOkXxUyLe6fnaAQrxpIRRxVSUnr-H5JKLIcQ/export?format=xlsx"
+              fileUrl={import.meta.env.VITE_FILE_URL}
             />
           </div>
         ) : (
