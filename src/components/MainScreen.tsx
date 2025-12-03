@@ -15,7 +15,7 @@ const initialFiltros: Filtros = {
 const MainScreen = () => {
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [filtros, setFiltros] = useState<Filtros>(initialFiltros);
-  const [viewMode, setViewMode] = useState<"lista" | "agrupado">("lista");
+  const [viewMode, setViewMode] = useState<"lista" | "agrupado">("agrupado");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileSelect = async (file: File) => {
@@ -109,17 +109,6 @@ const MainScreen = () => {
 
             <div className="flex gap-3 mb-6">
               <button
-                onClick={() => setViewMode("lista")}
-                className={`btn-elderly flex-1 flex items-center justify-center gap-2 ${
-                  viewMode === "lista"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground"
-                }`}
-              >
-                <List size={22} />
-                <span>Lista</span>
-              </button>
-              <button
                 onClick={() => setViewMode("agrupado")}
                 className={`btn-elderly flex-1 flex items-center justify-center gap-2 ${
                   viewMode === "agrupado"
@@ -127,8 +116,19 @@ const MainScreen = () => {
                     : "bg-secondary text-secondary-foreground"
                 }`}
               >
-                <Users size={22} />
+                <List size={22} />
                 <span>Por Cliente</span>
+              </button>
+              <button
+                onClick={() => setViewMode("lista")}
+                className={`btn-elderly flex-1 flex items-center justify-center gap-2 ${
+                  viewMode === "lista"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                <Users size={22} />
+                <span>Lista</span>
               </button>
             </div>
 
