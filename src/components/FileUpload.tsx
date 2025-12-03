@@ -1,13 +1,37 @@
-import { useRef } from 'react';
-import { Upload, FileSpreadsheet } from 'lucide-react';
+import { useEffect, useRef } from "react";
+import { Upload, FileSpreadsheet } from "lucide-react";
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
   isLoading: boolean;
+  fileUrl?: string;
 }
 
-const FileUpload = ({ onFileSelect, isLoading }: FileUploadProps) => {
+const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const loadFileFromUrl = async () => {
+      if (!fileUrl) return;
+
+      try {
+        const response = await fetch(fileUrl);
+        const blob = await response.blob();
+
+        const file = new File([blob], "customers.xlsx", {
+          type:
+            blob.type ||
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+
+        onFileSelect(file);
+      } catch (err) {
+        console.error("Erro ao carregar arquivo da URL:", err);
+      }
+    };
+
+    loadFileFromUrl();
+  }, [fileUrl, onFileSelect]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { List, Users, FileSpreadsheet, AlertCircle } from "lucide-react";
+import { List, Users, AlertCircle } from "lucide-react";
 import { Pedido, Filtros } from "@/types/pedido";
 import { parseExcelFile } from "@/lib/excel";
 import FileUpload from "./FileUpload";
@@ -17,14 +17,12 @@ const MainScreen = () => {
   const [filtros, setFiltros] = useState<Filtros>(initialFiltros);
   const [viewMode, setViewMode] = useState<"lista" | "agrupado">("lista");
   const [isLoading, setIsLoading] = useState(false);
-  const [fileName, setFileName] = useState<string>("");
 
   const handleFileSelect = async (file: File) => {
     setIsLoading(true);
     try {
       const data = await parseExcelFile(file);
       setPedidos(data);
-      setFileName(file.name);
       toast({
         title: "Arquivo carregado!",
         description: `${data.length} pedidos encontrados.`,
@@ -62,27 +60,20 @@ const MainScreen = () => {
     setFiltros(initialFiltros);
   };
 
-  const handleNewFile = () => {
-    setPedidos([]);
-    setFileName("");
-    setFiltros(initialFiltros);
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-10 bg-primary text-primary-foreground p-5 shadow-lg">
         <h1 className="text-elderly-2xl font-bold text-center">Pendências</h1>
-        {fileName && (
-          <p className="text-elderly-base text-center mt-1 opacity-90">
-            {fileName}
-          </p>
-        )}
       </header>
 
       <main className="p-4 pb-8 max-w-2xl mx-auto">
         {pedidos.length === 0 ? (
           <div className="mt-8">
-            <FileUpload onFileSelect={handleFileSelect} isLoading={isLoading} />
+            <FileUpload
+              onFileSelect={handleFileSelect}
+              isLoading={isLoading}
+              fileUrl="https://docs.google.com/spreadsheets/d/1VCv4zF1QOkXxUyLe6fnaAQrxpIRRxVSUnr-H5JKLIcQ/export?format=xlsx"
+            />
           </div>
         ) : (
           <>
@@ -160,14 +151,6 @@ const MainScreen = () => {
             ) : (
               <GroupedView pedidos={filteredPedidos} />
             )}
-
-            <button
-              onClick={handleNewFile}
-              className="btn-elderly w-full mt-8 bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary/30 flex items-center justify-center gap-3"
-            >
-              <FileSpreadsheet size={22} />
-              <span>Carregar Nova Planilha</span>
-            </button>
           </>
         )}
       </main>
