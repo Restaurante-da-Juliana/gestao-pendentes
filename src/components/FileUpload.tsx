@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Upload, FileSpreadsheet } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -11,12 +11,12 @@ interface FileUploadProps {
 const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const loadedOnce = useRef(false);
+  const [hasLoadedUrl, setHasLoadedUrl] = useState(false);
 
   useEffect(() => {
     const loadFileFromUrl = async () => {
       if (!fileUrl) return;
-      if (loadedOnce.current) return;
+      if (hasLoadedUrl) return;
 
       try {
         const response = await fetch(fileUrl);
@@ -26,7 +26,7 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
             description: "Link de planilha inválido, verifique.",
             variant: "destructive",
           });
-          loadedOnce.current = true;
+          setHasLoadedUrl(true);
           return;
         }
 
@@ -37,14 +37,17 @@ const FileUpload = ({ onFileSelect, isLoading, fileUrl }: FileUploadProps) => {
             blob.type ||
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
+
         onFileSelect(file);
       } catch (err) {
         console.error("Erro ao carregar arquivo da URL:", err);
+      } finally {
+        setHasLoadedUrl(true);
       }
     };
 
     loadFileFromUrl();
-  }, [fileUrl, onFileSelect]);
+  }, [fileUrl, hasLoadedUrl, onFileSelect]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
