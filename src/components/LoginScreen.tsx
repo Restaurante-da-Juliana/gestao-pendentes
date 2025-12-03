@@ -1,32 +1,32 @@
-import { useState } from 'react';
-import { Eye, EyeOff, LogIn } from 'lucide-react';
-import { login } from '@/lib/auth';
+import { useState } from "react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
+import { login } from "@/lib/auth";
 
 interface LoginScreenProps {
   onLogin: () => void;
 }
 
 const LoginScreen = ({ onLogin }: LoginScreenProps) => {
-  const [usuario, setUsuario] = useState('');
-  const [senha, setSenha] = useState('');
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     setTimeout(() => {
       const success = login(usuario, senha);
-      
+
       if (success) {
         onLogin();
       } else {
-        setError('Usuário ou senha incorretos');
+        setError("Usuário ou senha incorretos");
       }
-      
+
       setLoading(false);
     }, 500);
   };
@@ -67,7 +67,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             <div className="relative">
               <input
                 id="senha"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 className="input-elderly w-full pr-14"
@@ -79,7 +79,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
+                aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
               >
                 {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
               </button>
@@ -109,10 +109,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             )}
           </button>
         </form>
-
-        <p className="text-center text-muted-foreground mt-8 text-elderly-base">
-          Usuário: <strong>admin</strong> / Senha: <strong>admin123</strong>
-        </p>
       </div>
     </div>
   );
