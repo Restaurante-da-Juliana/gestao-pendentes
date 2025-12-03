@@ -5,7 +5,6 @@ import {
   Calendar,
   FileText,
   Phone,
-  Hash,
 } from "lucide-react";
 import { Pedido } from "@/types/pedido";
 import { formatCurrency, formatPhoneDisplay } from "@/lib/excel";
@@ -18,7 +17,6 @@ interface PedidoCardProps {
 const PedidoCard = ({ pedido }: PedidoCardProps) => {
   return (
     <div className="card-elderly animate-fade-in">
-      {/* Nome do Cliente - Destaque */}
       <div className="flex items-center gap-3 mb-4 pb-4 border-b-2 border-border">
         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
           <User size={24} className="text-primary" />
@@ -28,7 +26,6 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
         </h3>
       </div>
 
-      {/* Valor Devido - Maior destaque */}
       <div className="bg-primary/5 rounded-xl p-4 mb-5">
         <p className="text-elderly-base text-muted-foreground mb-1">
           Valor Devido
@@ -38,7 +35,6 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
         </p>
       </div>
 
-      {/* Informações do Pedido */}
       <div className="space-y-4 mb-6">
         <div className="flex items-start gap-3">
           <FileText
@@ -82,7 +78,6 @@ const PedidoCard = ({ pedido }: PedidoCardProps) => {
         </div>
       </div>
 
-      {/* Action Buttons */}
       <div className="space-y-3">
         <button
           onClick={() => openClientWhatsApp(pedido.phone_number)}

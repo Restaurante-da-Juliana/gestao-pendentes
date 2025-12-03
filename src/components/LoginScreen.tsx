@@ -34,7 +34,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-elderly-3xl font-bold text-foreground mb-3">
             Pendências
@@ -44,9 +43,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
           </p>
         </div>
 
-        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Usuario */}
           <div>
             <label htmlFor="usuario" className="label-elderly">
               Usuário
@@ -63,7 +60,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             />
           </div>
 
-          {/* Senha */}
           <div>
             <label htmlFor="senha" className="label-elderly">
               Senha
@@ -90,7 +86,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="bg-destructive/10 border-2 border-destructive rounded-xl p-4 animate-scale-in">
               <p className="text-destructive text-elderly-base font-medium text-center">
@@ -99,7 +94,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
             </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
@@ -116,7 +110,6 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
           </button>
         </form>
 
-        {/* Help Text */}
         <p className="text-center text-muted-foreground mt-8 text-elderly-base">
           Usuário: <strong>admin</strong> / Senha: <strong>admin123</strong>
         </p>

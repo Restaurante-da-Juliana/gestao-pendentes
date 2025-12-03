@@ -14,8 +14,4 @@ export interface PedidoAgrupado {
 
 export interface Filtros {
   busca: string;
-  dataInicio: string;
-  dataFim: string;
-  valorMin: string;
-  valorMax: string;
 }

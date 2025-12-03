@@ -60,7 +60,6 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
 
         return (
           <div key={grupo.customer_name} className="animate-fade-in">
-            {/* Client Header - Clickable */}
             <button
               onClick={() => toggleExpand(grupo.customer_name)}
               className="card-elderly w-full text-left hover:border-primary/50 transition-colors"
@@ -99,7 +98,6 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
               </div>
             </button>
 
-            {/* Expanded Pedidos */}
             {isExpanded && (
               <div className="mt-3 ml-4 pl-4 border-l-4 border-primary/20 space-y-4">
                 {grupo.pedidos.map((pedido, key) => (

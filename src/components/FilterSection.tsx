@@ -1,4 +1,4 @@
-import { Search, Calendar, DollarSign, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Filtros } from '@/types/pedido';
 
 interface FilterSectionProps {
@@ -8,7 +8,7 @@ interface FilterSectionProps {
 }
 
 const FilterSection = ({ filtros, onFiltrosChange, onLimpar }: FilterSectionProps) => {
-  const hasFilters = filtros.busca || filtros.dataInicio || filtros.dataFim || filtros.valorMin || filtros.valorMax;
+  const hasFilters = filtros.busca;
 
   return (
     <div className="card-elderly mb-6 animate-fade-in">
@@ -28,7 +28,6 @@ const FilterSection = ({ filtros, onFiltrosChange, onLimpar }: FilterSectionProp
           />
         </div>
 
-        {/* Botão Limpar */}
         {hasFilters && (
           <button
             onClick={onLimpar}

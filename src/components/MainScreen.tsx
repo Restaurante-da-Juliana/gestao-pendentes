@@ -10,10 +10,6 @@ import { toast } from "@/hooks/use-toast";
 
 const initialFiltros: Filtros = {
   busca: "",
-  dataInicio: "",
-  dataFim: "",
-  valorMin: "",
-  valorMax: "",
 };
 
 const MainScreen = () => {
@@ -47,56 +43,10 @@ const MainScreen = () => {
 
   const filteredPedidos = useMemo(() => {
     return pedidos.filter((pedido) => {
-      // Busca por nome
       if (filtros.busca) {
         const searchTerm = filtros.busca.toLowerCase();
         if (!pedido.customer_name.toLowerCase().includes(searchTerm)) {
           return false;
-        }
-      }
-
-      // Filtro por valor
-      if (filtros.valorMin) {
-        if (pedido.amount_due < parseFloat(filtros.valorMin)) {
-          return false;
-        }
-      }
-      if (filtros.valorMax) {
-        if (pedido.amount_due > parseFloat(filtros.valorMax)) {
-          return false;
-        }
-      }
-
-      // Filtro por data (formato DD/MM/YYYY)
-      if (filtros.dataInicio || filtros.dataFim) {
-        const parseDate = (dateStr: string): Date | null => {
-          // Try DD/MM/YYYY format
-          const parts = dateStr.split("/");
-          if (parts.length === 3) {
-            const day = parseInt(parts[0]);
-            const month = parseInt(parts[1]) - 1;
-            const year = parseInt(parts[2]);
-            return new Date(year, month, day);
-          }
-          return null;
-        };
-
-        const pedidoDate = parseDate(pedido.date);
-
-        if (pedidoDate) {
-          if (filtros.dataInicio) {
-            const startDate = new Date(filtros.dataInicio);
-            if (pedidoDate < startDate) {
-              return false;
-            }
-          }
-          if (filtros.dataFim) {
-            const endDate = new Date(filtros.dataFim);
-            endDate.setHours(23, 59, 59);
-            if (pedidoDate > endDate) {
-              return false;
-            }
-          }
         }
       }
 
@@ -120,7 +70,6 @@ const MainScreen = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-primary text-primary-foreground p-5 shadow-lg">
         <h1 className="text-elderly-2xl font-bold text-center">Pendências</h1>
         {fileName && (
@@ -137,7 +86,6 @@ const MainScreen = () => {
           </div>
         ) : (
           <>
-            {/* Summary Card */}
             <div className="card-elderly mb-6 bg-primary/5 animate-fade-in">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
@@ -162,14 +110,12 @@ const MainScreen = () => {
               </div>
             </div>
 
-            {/* Filters */}
             <FilterSection
               filtros={filtros}
               onFiltrosChange={setFiltros}
               onLimpar={handleLimparFiltros}
             />
 
-            {/* View Toggle */}
             <div className="flex gap-3 mb-6">
               <button
                 onClick={() => setViewMode("lista")}
@@ -195,7 +141,6 @@ const MainScreen = () => {
               </button>
             </div>
 
-            {/* Data Display */}
             {filteredPedidos.length === 0 ? (
               <div className="card-elderly text-center animate-fade-in">
                 <AlertCircle
@@ -216,7 +161,6 @@ const MainScreen = () => {
               <GroupedView pedidos={filteredPedidos} />
             )}
 
-            {/* Load New File Button */}
             <button
               onClick={handleNewFile}
               className="btn-elderly w-full mt-8 bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary/30 flex items-center justify-center gap-3"
