@@ -66,7 +66,11 @@ const MainScreen = () => {
         <h1 className="text-elderly-2xl font-bold text-center">Pendências</h1>
       </header>
 
-      <main className="p-4 pb-8 max-w-2xl mx-auto">
+      <main
+        className={`p-4 pb-8 max-w-2xl mx-auto ${
+          viewMode === "agrupado" ? "overflow-x-hidden" : ""
+        }`}
+      >
         {pedidos.length === 0 ? (
           <div className="mt-8">
             <FileUpload

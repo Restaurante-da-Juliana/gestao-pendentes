@@ -45,7 +45,7 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-x-hidden">
       <div className="flex items-center gap-2 text-muted-foreground mb-2">
         <Users size={20} />
         <span className="text-elderly-base font-medium">
@@ -60,10 +60,10 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
           <div key={grupo.customer_name} className="animate-fade-in">
             <button
               onClick={() => toggleExpand(grupo.customer_name)}
-              className="card-elderly w-full text-left hover:border-primary/50 transition-colors"
+              className="card-elderly w-full min-w-0 text-left hover:border-primary/50 transition-colors"
             >
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 flex-1">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <User size={24} className="text-primary" />
                   </div>
@@ -80,9 +80,7 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
 
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="text-elderly-sm text-muted-foreground">
-                      Total
-                    </p>
+                    <p className="text-elderly-sm text-muted-foreground">Total</p>
                     <p className="text-elderly-xl font-bold text-primary">
                       {formatCurrency(grupo.total_devido)}
                     </p>
@@ -97,7 +95,7 @@ const GroupedView = ({ pedidos }: GroupedViewProps) => {
             </button>
 
             {isExpanded && (
-              <div className="mt-3 ml-4 pl-4 border-l-4 border-primary/20 space-y-4">
+              <div className="mt-3 ml-4 pl-4 border-l-4 border-primary/20 space-y-4 overflow-hidden">
                 {grupo.pedidos.map((pedido, key) => (
                   <PedidoCard key={key} pedido={pedido} />
                 ))}
