@@ -26,6 +26,7 @@ const MainScreen = () => {
       toast({
         title: "Arquivo carregado!",
         description: `${data.length} pedidos encontrados.`,
+        variant: "success",
       });
     } catch (error) {
       toast({
